@@ -1,7 +1,8 @@
 # Terminal Emulator
 
 Простой настраиваемый эмулятор терминала на Rust с использованием GTK4 и VTE4.
-
+Копирует дизайн терминала в тайлинговых оконных менеджерах.
+![alt text](TWMlike-term-screen-1.png)
 ## Требования
 
 ### Ubuntu/Debian
@@ -41,12 +42,12 @@ cargo run
 - [x] Настраиваемая обводка окна (толщина и цвет)
 - [x] Градиентная обводка окна
 - [x] Скругление углов окна
+- [x] Внутренние отступы (padding)
 - [ ] Настройка шрифтов
 - [ ] Горячие клавиши
 - [ ] Вкладки
 - [ ] Разделение окон
 - [ ] Полная цветовая схема (16 цветов)
-- [ ] Прокрутка истории
 
 ## Конфигурация
 
@@ -78,6 +79,7 @@ cp config.toml.example ~/.config/terminal-emulator/config.toml
   - Обычный цвет: `"#00ff00"`
   - Градиент: `"linear_gradient to right #ff0000 #00ff00 #0000ff"`
 - `border_radius` - скругление углов окна в пикселях (по умолчанию: 0)
+- `padding` - внутренний отступ от края окна до текста в пикселях (по умолчанию: 0)
 
 #### Терминал (`[terminal]`)
 - `background_color` - цвет фона в формате #RRGGBB (по умолчанию: #1e1e1e)
@@ -93,6 +95,7 @@ headerbar_style = "integrated"  # монолитный заголовок
 border_width = 3                # обводка 3 пикселя
 border_color = "linear_gradient to right bottom #ff00ff #00ffff #00ff00"  # градиент
 border_radius = 15              # скруглённые углы
+padding = 10                    # внутренний отступ 10px
 
 [terminal]
 background_color = "#282c34"

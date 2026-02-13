@@ -28,6 +28,8 @@ pub struct WindowConfig {
     pub border_color: String,
     #[serde(default = "default_border_radius")]
     pub border_radius: i32,
+    #[serde(default = "default_padding")]
+    pub padding: i32,
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
@@ -69,6 +71,10 @@ fn default_border_radius() -> i32 {
     0
 }
 
+fn default_padding() -> i32 {
+    0
+}
+
 fn default_background_color() -> String {
     "#1e1e1e".to_string()
 }
@@ -84,6 +90,7 @@ impl Default for WindowConfig {
             border_width: default_border_width(),
             border_color: default_border_color(),
             border_radius: default_border_radius(),
+            padding: default_padding(),
         }
     }
 }

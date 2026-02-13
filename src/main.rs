@@ -35,6 +35,11 @@ fn build_ui(app: &Application) {
         eprintln!("Некорректный цвет фона: {}", config.terminal.background_color);
     }
     
+    // Применяем внутренние отступы к терминалу
+    if config.window.padding > 0 {
+        apply_terminal_padding(&terminal, config.window.padding);
+    }
+    
     // Создаем главное окно
     let window = ApplicationWindow::builder()
         .application(app)
@@ -194,6 +199,18 @@ fn apply_window_border(_window: &ApplicationWindow, border_width: i32, border_co
         let css = format!("window {{\n    {}\n}}", css_parts.join("\n    "));
         apply_css(&css);
     }
+}
+
+/// Применяет внутренние отступы к терминалу
+fn apply_terminal_padding(_terminal: &vte::Terminal, padding: i32) {
+    let css = format!(
+        "vte-terminal {{
+    padding: {}px;
+}}",
+        padding
+    );
+    
+    apply_css(&css);
 }
 
 /// Парсит строку градиента и преобразует в CSS формат
