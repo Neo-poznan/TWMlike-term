@@ -1,0 +1,20 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=TWMlike Term
+GenericName=Terminal
+Comment=Настраиваемый эмулятор терминала с поддержкой градиентов и прозрачности
+Comment[ru]=Настраиваемый эмулятор терминала с поддержкой градиентов и прозрачности
+Exec=terminal-emulator
+Icon=twmlike-term-logo
+Terminal=false
+StartupNotify=true
+StartupWMClass=com.example.TerminalEmulator
+Categories=System;TerminalEmulator;
+Keywords=terminal;emulator;shell;bash;command;
+Actions=NewWindow;
+
+[Desktop Action NewWindow]
+Name=Open a New Window
+Name[ru]=Открыть новое окно
+Exec=terminal-emulator

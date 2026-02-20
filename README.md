@@ -1,4 +1,4 @@
-# Terminal Emulator
+# TWMlike-term
 
 Простой настраиваемый эмулятор терминала на Rust с использованием GTK4 и VTE4.
 Копирует дизайн терминала в тайлинговых оконных менеджерах.
@@ -20,7 +20,64 @@ sudo dnf install gtk4-devel vte291-gtk4-devel
 sudo pacman -S gtk4 vte4
 ```
 
-## Сборка и запуск
+## Сборка и установка
+
+### Метод 1: Установка через Makefile (рекомендуется)
+
+```bash
+# Клонируйте репозиторий
+git clone https://github.com/yourusername/terminal-emulator.git
+cd terminal-emulator
+
+# Проверка зависимостей и сборка
+make
+
+# Установка в систему (по умолчанию в /usr/local)
+sudo make install
+
+# Или установка в /usr
+sudo make install PREFIX=/usr
+
+# Удаление
+sudo make uninstall
+
+# Очистка собранных файлов
+make clean
+
+# Справка
+make help
+```
+
+**Быстрая установка:**
+```bash
+# Автоматическая установка одной командой
+./install.sh
+
+# Или с указанием PREFIX
+PREFIX=/usr ./install.sh
+```
+
+Makefile автоматически:
+- Проверяет наличие Rust и всех необходимых библиотек
+- Собирает оптимизированную версию (release)
+- Устанавливает бинарник в `$PREFIX/bin/` (по умолчанию `/usr/local/bin/`)
+- Устанавливает `.desktop` файл в `/usr/share/applications/` (всегда требует sudo)
+
+**Важно**: Desktop файл всегда устанавливается в `/usr/share/applications/` независимо от значения PREFIX, поэтому установка требует прав суперпользователя (`sudo`).
+
+**Доступные команды Makefile:**
+
+| Команда | Описание |
+|---------|----------|
+| `make` | Проверить зависимости и собрать проект |
+| `make build` | Собрать проект (release) |
+| `make install` | Установить в систему |
+| `make uninstall` | Удалить из системы |
+| `make clean` | Очистить собранные файлы |
+| `make check-deps` | Проверить наличие зависимостей |
+| `make help` | Показать справку |
+
+### Метод 2: Ручная сборка через Cargo
 
 ```bash
 # Сборка проекта
@@ -28,6 +85,16 @@ cargo build --release
 
 # Запуск
 cargo run
+```
+
+## Запуск
+
+После установки через Makefile:
+```bash
+# Из командной строки
+terminal-emulator
+
+# Или найдите "Terminal Emulator" в меню приложений вашего DE
 ```
 
 ## Возможности
@@ -47,7 +114,7 @@ cargo run
 - [ ] Горячие клавиши
 - [ ] Вкладки
 - [ ] Разделение окон
-- [ ] Полная цветовая схема (16 цветов)
+- [X] Полная цветовая схема (16 цветов)
 
 ## Конфигурация
 
@@ -132,10 +199,49 @@ border-radius: Mpx;
 
 ```
 terminal-emulator/
-├── Cargo.toml              # Зависимости и настройки проекта
-├── config.toml.example     # Пример конфигурационного файла
+├── Cargo.toml                  # Зависимости и настройки проекта
+├── Makefile                    # Makefile для сборки и установки
+├── install.sh                  # Скрипт быстрой установки
+├── terminal-emulator.desktop   # Desktop файл для GUI запуска
+├── config.toml.example         # Пример конфигурационного файла
 ├── src/
-│   ├── main.rs             # Основной код приложения
-│   └── config.rs           # Модуль работы с конфигурацией
-└── README.md               # Этот файл
+│   ├── main.rs                 # Основной код приложения
+│   └── config.rs               # Модуль работы с конфигурацией
+└── README.md                   # Этот файл
+```
+
+## Разработка
+
+### Зависимости для разработки
+
+Убедитесь, что у вас установлены:
+- Rust (rustc + cargo): https://rustup.rs/
+- GTK4: `libgtk-4-dev`
+- VTE4: `libvte-2.91-gtk4-dev`
+
+### Проверка зависимостей
+
+```bash
+make check-deps
+```
+
+### Сборка в режиме отладки
+
+```bash
+cargo build
+cargo run
+```
+
+### Тестирование конфигурации
+
+```bash
+# Скопируйте пример конфигурации
+mkdir -p ~/.config/terminal-emulator
+cp config.toml.example ~/.config/terminal-emulator/config.toml
+
+# Отредактируйте конфигурацию
+nano ~/.config/terminal-emulator/config.toml
+
+# Запустите терминал
+cargo run
 ```
